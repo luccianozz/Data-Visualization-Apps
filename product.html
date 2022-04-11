@@ -1,0 +1,35 @@
+<html>
+  <head>
+  <title>Static example</title>
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script>
+      google.load("visualization", "1", {packages:["table"]});
+      google.setOnLoadCallback(drawTable);
+      function drawTable() {
+        var jscode_data = new google.visualization.DataTable();
+jscode_data.addColumn("string", "Product Line", "Product Line");
+jscode_data.addColumn("number", "Salary", "Total Sales");
+jscode_data.addRows(5);
+jscode_data.setCell(0, 0, "Health and beauty");
+jscode_data.setCell(0, 1, 49193.739, "$49193.7390");
+jscode_data.setCell(1, 0, "Home and lifestyle");
+jscode_data.setCell(1, 1, 53861.913, "$53861.9130");
+jscode_data.setCell(2, 0, "Fashion accessories");
+jscode_data.setCell(2, 1, 54305.895, "$54305.8950");
+jscode_data.setCell(3, 0, "Electronic accessories");
+jscode_data.setCell(3, 1, 54337.5315, "$54337.5315");
+jscode_data.setCell(4, 0, "Sports and travel");
+jscode_data.setCell(4, 1, 55122.8265, "$55122.8265");
+
+        var jscode_table = new google.visualization.Table(document.getElementById('table_div_jscode'));
+        jscode_table.draw(jscode_data, {showRowNumber: true});
+        var json_table = new google.visualization.Table(document.getElementById('table_div_json'));
+        json_table.draw(json_data, {showRowNumber: true});
+      }
+    </script>
+  </head>
+  <body>
+    <H1>Table for Product Categories by Total Sales Value</H1>
+    <div id="table_div_jscode"></div>
+  </body>
+</html>
