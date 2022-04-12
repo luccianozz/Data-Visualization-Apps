@@ -23,3 +23,7 @@ product_line_df = product_line_df.groupby('Product line', as_index=False).sum()
 product_line_df = product_line_df.sort_values('Total')
 print(product_line_df.head())
 
+
+quantity = sales_df[['Gender', 'Quantity']]
+quantity = quantity.groupby('Gender', as_index=False).sum()
+print(quantity.head())

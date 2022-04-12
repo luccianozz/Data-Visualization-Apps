@@ -1,55 +1,23 @@
-import gviz_api
+import pandas as pd
+import plotly.express as px
+from dash import Dash
 
-page_template = """
-<html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['line']});
-      google.charts.setOnLoadCallback(drawChart);
-      google.charts.load('current', {'packages':['line','corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-      var chartDiv = document.getElementById('chartDiv');
-      var data = new google.visualization.DataTable();
-      data.addColumn('date','Month');
-      data.addColumn('number','Total Sales Value');
-      data.addRows([
-      [new Date(2019,1),116291.868],
-      [new Date(2019,2),97219.374],
-      [new Date(2019,3),109455.507],
-      ]);
+app = Dash(__name__)
 
-      var materialOptions = {
-      chart: {
-      title:'Total Sales Value fo the First Quarter'},
-      width: 900,
-      height: 500,
-      series: {
-      0: {axis: 'Total Sales Value'},
-      },
-      axes: {
-      y: {
-      Temps: {label: 'Total Sales Value'},
-      }
-      }};
+# Supply chain dataset: https://www.kaggle.com/datasets/divyeshardeshana/supply-chain-shipment-pricing-data?resource=download
+df = pd.read_csv("SCMS_Delivery_History_Dataset.csv")
 
-      function drawMaterialChart()
-      {
-      var materialChart = new google.charts.Line(chartDiv);
-      materialChart.draw(data,materialOptions);
+# Data wrangling
+deliver_date_df = df[['Delivery Recorded Date', 'Line Item Value']]
+deliver_date_df['Delivery Recorded Date'] = pd.to_datetime(deliver_date_df['Delivery Recorded Date'])
+deliver_date_df['year'] = deliver_date_df['Delivery Recorded Date'].dt.to_period('Y')
+deliver_date_df['year'] = deliver_date_df['year'].astype(str)
+deliver_date_df = deliver_date_df.groupby('year', as_index=False).sum()
 
-      }      
+# Plotting
+fig = px.line(deliver_date_df,
+              x="year",
+              y="Line Item Value",
+              title='Line Item Value (USD) by Date in Supply Chain Data Set')
+fig.show()
 
-      drawMaterialChart();
-      }
-    </script>
-  </head>
-  <body>
-    <div id="chartDiv"></div>
-  </body>
-</html>
-"""
-
-# Putting the JS code and JSon string into the template
-print(page_template)

@@ -16,5 +16,30 @@ how each product categories developed along the first quarter.
 
 ___
 ## Dash Visualization Graphs
+**Using dash and plotly libraries**
+```
+    pip install plotly
+    pip install dash
+```
 
+### Chart 3: chart3.py
 
+In this chart we are plotting three different graphs, one is based on the distribution of net sales value
+by gender plotted on a bar chart. The second one is a distribution among quantity in order to understand if 
+there's any variation of price vs quantity among gender, There's not. Finally, the last graph is a histogram 
+based distribution of  the product line categories by net price value in order to understand if there's much 
+variation from product to product, concluding that there's not.
+
+To run the code:
+```
+python chart3.py
+```
+### Chart 4: chart4.py
+On this graph I used a different dataset, I chose to use a supply chain data set in order to understand
+some product line value distribution among time. For this I made a line chart that showed me how it
+exponentially increased over time.
+
+To run the code:
+```
+python chart4.py
+```
